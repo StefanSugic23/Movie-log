@@ -13,8 +13,16 @@ const clear = document.querySelector("#clearButton")
 const ratingInput = document.querySelector("#rating");
 
 
+let movies =[];
+
+try {
 const saved= localStorage.getItem("movies");
-const movies = JSON.parse(saved) || [];
+ movies = JSON.parse(saved) || [];
+}
+catch(err){
+console.log("Could not read saved movies:");
+console.log(err)
+}
 
 function save(){
     const text = JSON.stringify(movies);
