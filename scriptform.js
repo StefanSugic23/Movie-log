@@ -11,6 +11,8 @@ const removeLast = document.querySelector("#removeLast");
 const showTitles = document.querySelector("#showTitles");
 const clear = document.querySelector("#clearButton")
 const ratingInput = document.querySelector("#rating");
+const movieList = document.querySelector("#movieList")
+const average = document.querySelector("#average");
 
 
 let movies =[];
@@ -29,6 +31,28 @@ function save(){
     localStorage.setItem("movies", text);
 }
 
+function render(){
+    movieList.textContent="";
+    for (let i =0; i<movies.length; i++){
+        const li = document.createElement("li")
+        const label = movies[i].rating >= 7 ? "good" : "weak";
+        const titleElement = document.createElement("h3");
+        const directorElement = document.createElement("p")
+        const ratingElement = document.createElement("p")
+        const reviewElement = document.createElement("p")
+        titleElement.textContent = movies[i].title;
+        directorElement.textContent = `Directed by ${movies[i].director}`;
+        ratingElement.textContent = `${movies[i].rating}/10 - ${label}`
+        reviewElement.textContent = movies[i].review
+
+        li.appendChild(titleElement);
+        li.appendChild(directorElement)
+        li.appendChild(ratingElement);
+        li.appendChild(reviewElement)
+        movieList.appendChild(li);
+    }
+}
+render();
 
 
 form.addEventListener("submit", function(event) {
@@ -91,6 +115,7 @@ const newMovie = {
 
 movies.push(newMovie);
 save();
+render();
 console.log(movies);
 
 directorInput.value="";
@@ -114,6 +139,7 @@ listBtn.addEventListener("click", function(){
 removeLast.addEventListener("click", function(){
     movies.pop();
     save();
+    render();
     console.log("Removed last movie. Left are quantity : " + movies.length)
 })
 
@@ -133,5 +159,6 @@ clear.addEventListener("click", function(){
     movies.splice(0,movies.length);
     localStorage.removeItem("movies");
     console.log("all movies has been removed")
+    render();
 })
 
