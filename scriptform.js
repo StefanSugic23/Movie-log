@@ -10,6 +10,7 @@ const listBtn = document.querySelector("#listBtn");
 const removeLast = document.querySelector("#removeLast");
 const showTitles = document.querySelector("#showTitles");
 const clear = document.querySelector("#clearButton")
+const ratingInput = document.querySelector("#rating");
 
 
 const saved= localStorage.getItem("movies");
@@ -28,6 +29,9 @@ event.preventDefault(); // detta är för att texten som vi skriver i input för
 const title = titleInput.value.trim();
 const director = directorInput.value.trim();
 const review = reviewInput.value.trim();
+const ratingText = ratingInput.value.trim();
+const rating = Number(ratingText);
+
 
 if (title ==="") {
     error.textContent = "Please enter a title"
@@ -43,6 +47,16 @@ if (title.length < 2){
 if(director===""){
     error.textContent= "Please enter a director";
     return;
+}
+
+if (ratingText ==="" || isNaN(rating)){
+    error.textContent = "The input must be a number in rating";
+    return;    
+}
+if (rating<1|| rating>10) {
+    error.textContent = "Rating must be between 1 and 10";
+    return;
+
 }
 for ( let i = 0; i< movies.length; i++){
     if (movies[i].title.toLowerCase() === title.toLowerCase()){
@@ -63,7 +77,8 @@ error.textContent="";
 const newMovie = {
     title: title,
     director: director,
-    review: review
+    review: review,
+    rating: rating
 };
 
 movies.push(newMovie);
@@ -73,6 +88,7 @@ console.log(movies);
 directorInput.value="";
 titleInput.value="";
 reviewInput.value="";
+ratingInput.value="";
 
 
 });
