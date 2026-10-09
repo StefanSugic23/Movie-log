@@ -97,8 +97,8 @@ listBtn.addEventListener("click", function(){
     for (let i = 0; i< movies.length; i++){
         const part = movies[i].director.split(" ");
         const lastName = part[part.length-1];
-        const preview = movies[i].review.slice(0,20);
-        console.log((i+1) + "." + movies[i].title + " "+  lastName + " " + preview)
+        const label = movies[i].rating >= 7 ? "Good" : "Weak";
+        console.log(`${i+1}. ${movies[i].title} (${lastName}) ${movies[i].rating}/10 - ${label}`)
     }
 }
 )
@@ -126,3 +126,4 @@ clear.addEventListener("click", function(){
     localStorage.removeItem("movies");
     console.log("all movies has been removed")
 })
+
